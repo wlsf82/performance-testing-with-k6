@@ -1,0 +1,25 @@
+{
+  "name": "performance-testing-with-k6",
+  "version": "1.0.0",
+  "description": "A small Express API with deliberate performance problems, built for the Performance Testing with k6 course at the Talking About Testing School.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "k6",
+    "performance-testing",
+    "load-testing",
+    "express",
+    "talking-about-testing"
+  ],
+  "author": "Walmyr Lima e Silva Filho",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

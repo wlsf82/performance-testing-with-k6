@@ -1,0 +1,8 @@
+node_modules/
+
+# k6 output written by --summary-export, --out json, or handleSummary
+summary.json
+results.json
+
+*.log
+.DS_Store
