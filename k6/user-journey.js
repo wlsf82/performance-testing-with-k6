@@ -31,7 +31,7 @@ export default function () {
     const response = http.post(
       `${BASE_URL}/login`,
       JSON.stringify({ username: user.username, password: user.password }),
-      { headers: { 'Content-Type': 'application/json' } },
+      { headers: { 'Content-Type': 'application/json' }, tags: { name: 'POST /login' } },
     )
 
     const ok = check(response, {
@@ -48,23 +48,25 @@ export default function () {
   })
 
   const authHeaders = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
   }
 
   sleep(randomIntBetween(2, 5))
 
   group('browse products', function () {
-    const response = http.get(`${BASE_URL}/products?page=${page}&limit=20`)
+    const response = http.get(`${BASE_URL}/products?page=${page}&limit=20`, {
+      tags: { name: 'GET /products' },
+    })
     check(response, { 'products listed': (r) => r.status === 200 })
   })
 
   sleep(randomIntBetween(2, 5))
 
   group('view a product', function () {
-    const response = http.get(`${BASE_URL}/products/${productId}`)
+    const response = http.get(`${BASE_URL}/products/${productId}`, {
+      tags: { name: 'GET /products/:id' },
+    })
     check(response, { 'product found': (r) => r.status === 200 })
   })
 
@@ -74,7 +76,7 @@ export default function () {
     const response = http.post(
       `${BASE_URL}/cart`,
       JSON.stringify({ productId, quantity: 1 }),
-      authHeaders,
+      { headers: authHeaders, tags: { name: 'POST /cart' } },
     )
     check(response, { 'added to cart': (r) => r.status === 201 })
   })
@@ -82,7 +84,10 @@ export default function () {
   sleep(randomIntBetween(2, 5))
 
   group('checkout', function () {
-    const response = http.post(`${BASE_URL}/checkout`, null, authHeaders)
+    const response = http.post(`${BASE_URL}/checkout`, null, {
+      headers: authHeaders,
+      tags: { name: 'POST /checkout' },
+    })
     check(response, { 'order created': (r) => r.status === 201 })
   })
 
