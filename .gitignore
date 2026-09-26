@@ -4,5 +4,8 @@ node_modules/
 summary.json
 results.json
 
+# k6 html reports
+*-report.html
+
 *.log
 .DS_Store
