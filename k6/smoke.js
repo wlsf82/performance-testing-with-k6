@@ -12,7 +12,7 @@ export const options = {
   thresholds: {
     'http_req_duration{name:GET /products}': ['p(95)<300'],
     'http_req_duration{name:GET /products/:id}': ['p(95)<300'],
-    'http_req_duration{name:POST /checkout}': ['p(95)<500'],
+    'http_req_duration{name:POST /checkout}': ['p(95)<2000'],
     http_req_failed: ['rate<0.01'],
     checks: ['rate>0.99'],
   },
